@@ -1,6 +1,5 @@
-
-<?= $this->extend('plantilla') ?>
-<?= $this->section('content') ?>
+<?= $this->extend('login/plantilla') ?>
+<?= $this->section('login') ?>
 
 <div id="layoutAuthentication">
   
@@ -19,9 +18,20 @@
 								
 							<div class="card-body">
                 
+								<div class="text-danger">
+									<?php if(isset($mensaje_flash) && !empty($mensaje_flash)):
+										echo "<ul><li>".$mensaje_flash."</li></ul>";
+									?>
+									<?php endif;?>		
+								</div>	
+								
+								<div class="text-danger">
+									<?= \Config\Services::validation()->listErrors() ?>
+								</div>	
+									
 								<?php 
 									$attributos = ['class' => 'form-login', 'id' => 'form', 'autocomplete' => 'off' ];
-									echo form_open('Login/validarLogin', $attributos);
+									echo form_open('login/validarLogin', $attributos);
 								?>	
 									
 								<div class="form-floating mb-3">

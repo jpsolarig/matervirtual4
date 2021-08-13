@@ -1,23 +1,63 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 namespace App\Controllers;
+use CodeIgniter\Controller;
 
-/**
- * Description of Escritorio
- *
- * @author Jean Pierre
- */
+use App\Models\Administrador\Permisos_m;
+
+
 class Escritorio extends BaseController{
+	
+	public function __construct()
+  {
+    
+		
+    
+    //$this->data['jss'] = array(); 
+    //$this->data['csss'] = array('css/escritorio.css'); 
+  }
+	
+	
+	
 	
 	public function index()
 	{
-		echo view('escritorio'); 
+		$data = [
+        'titulo'   => 'Escritorio',
+        
+		];
+		helper('url');
+		$misession = session();
+		
+		$data['url'] = 'escritorio/';
+		$estsis = 1;
+		$iderol = $misession->get('iderol');
+		
+		$permiso = new Permisos_m();
+			
+		$data['sistemas'] = $permiso->listarSistemaRoles($estsis,$iderol);
+		
+		
+		if ($misession->get('ideusu')) 
+    {
+      //echo view('login/login',$data); 
+			return view('vistas/escritorio',$data);
+    }
+    else
+    {
+      return redirect()->to(site_url('login/salir'));
+		}
+		
+		
+	
+		
 	}
 	
 }
+
+
+		 
+		 
+		
+		
